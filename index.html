@@ -1,0 +1,2155 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <base href="https://cdn.jsdelivr.net/gh/aukak/hollow-knight@2fc2e7149f0d5b2609b135ab48f00fd973930635/">
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hollow Knight - Play Online | Free Edition</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L7856P3VNT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-L7856P3VNT');
+    </script>
+
+    <!-- =================================================================== -->
+    <!-- GOOGLE ADSENSE GLOBAL SCRIPT (Paste your AdSense account script here)-->
+    <!-- Example:                                                            -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+    <!-- =================================================================== -->
+
+    <style>
+        :root {
+            --bg-color: #06080e;
+            --surface-color: rgba(13, 17, 28, 0.88);
+            --surface-border: rgba(147, 197, 253, 0.12);
+            --surface-border-hover: rgba(147, 197, 253, 0.35);
+            --accent-blue: #3b82f6;
+            --accent-glow: #60a5fa;
+            --accent-cyan: #38bdf8;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --ad-card-bg: linear-gradient(180deg, rgba(16, 22, 38, 0.95) 0%, rgba(10, 14, 25, 0.95) 100%);
+            --ad-border: rgba(96, 165, 250, 0.22);
+            --ad-border-hover: rgba(147, 197, 253, 0.55);
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --success: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            user-select: none;
+        }
+
+        /* Root App Shell */
+        #site-root {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background: radial-gradient(circle at 50% 30%, #13182a 0%, #06080e 85%);
+        }
+
+        /* ======================================================== */
+        /* TOP NAVIGATION BAR                                       */
+        /* ======================================================== */
+        .site-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            background: var(--surface-color);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--surface-border);
+            z-index: 50;
+            height: 56px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .header-title-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-icon-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(96, 165, 250, 0.3);
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.25);
+        }
+
+        .header-title {
+            font-size: 17px;
+            font-weight: 700;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #ffffff 40%, #93c5fd 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .badge-edition {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(56, 189, 248, 0.1);
+            color: #7dd3fc;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 9px;
+            border-radius: 999px;
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            letter-spacing: 0.5px;
+        }
+
+        .badge-pulse-dot {
+            width: 6px;
+            height: 6px;
+            background: #38bdf8;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #38bdf8;
+            animation: badgePulse 2s infinite ease-in-out;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.85); }
+        }
+
+        /* 5-Minute Ad Break Timer Widget (Center Top Bar) */
+        .header-timer-widget {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid rgba(96, 165, 250, 0.28);
+            padding: 5px 14px;
+            border-radius: 999px;
+            box-shadow: 0 0 14px rgba(37, 99, 235, 0.18);
+            transition: all 0.2s ease;
+        }
+
+        .header-timer-widget:hover {
+            border-color: rgba(96, 165, 250, 0.5);
+            box-shadow: 0 0 18px rgba(37, 99, 235, 0.35);
+        }
+
+        .timer-icon {
+            font-size: 13px;
+        }
+
+        .timer-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .timer-clock {
+            font-size: 13px;
+            font-weight: 800;
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            color: #60a5fa;
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px rgba(96, 165, 250, 0.6);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Polished Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 14px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid var(--surface-border);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+            outline: none;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--surface-border-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-fullscreen {
+            background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
+            border-color: rgba(147, 197, 253, 0.4);
+            color: #ffffff;
+            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.35);
+        }
+
+        .btn-fullscreen:hover {
+            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.55);
+            border-color: rgba(191, 219, 254, 0.7);
+        }
+
+        /* Floating Fullscreen Top Timer Pill */
+        .fullscreen-top-timer {
+            position: fixed;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            align-items: center;
+            gap: 8px;
+            background: rgba(10, 14, 25, 0.85);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(96, 165, 250, 0.32);
+            padding: 5px 14px;
+            border-radius: 999px;
+            z-index: 99998;
+            box-shadow: 0 6px 22px rgba(0, 0, 0, 0.7), 0 0 14px rgba(37, 99, 235, 0.25);
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        #site-root.is-fullscreen .fullscreen-top-timer {
+            display: inline-flex;
+        }
+
+        /* ======================================================== */
+        /* MAIN GAME LAYOUT CONTAINER                               */
+        /* ======================================================== */
+        .main-layout {
+            display: flex;
+            flex: 1;
+            width: 100%;
+            height: calc(100% - 56px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ======================================================== */
+        /* AD SIDEBARS (3 ADS PER SIDE)                             */
+        /* ======================================================== */
+        .ad-sidebar {
+            width: 180px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 12px 10px;
+            background: rgba(9, 12, 20, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 40;
+            overflow-y: auto;
+            max-height: 100%;
+            flex-shrink: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .ad-sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .ad-sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.16);
+            border-radius: 4px;
+        }
+
+        .ad-sidebar-left {
+            border-right: 1px solid var(--surface-border);
+        }
+
+        .ad-sidebar-right {
+            border-left: 1px solid var(--surface-border);
+        }
+
+        /* Ad Card Container */
+        .ad-card {
+            position: relative;
+            background: var(--ad-card-bg);
+            border: 1px solid var(--ad-border);
+            border-radius: 10px;
+            width: 160px;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            margin: 0 auto;
+            flex-shrink: 0;
+        }
+
+        .ad-card:hover {
+            border-color: var(--ad-border-hover);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65), 0 0 12px rgba(96, 165, 250, 0.18);
+            transform: translateY(-2px);
+        }
+
+        .ad-card.ad-closed {
+            opacity: 0;
+            transform: scale(0.9);
+            pointer-events: none;
+            display: none !important;
+        }
+
+        /* Ad Close Button */
+        .ad-close-btn {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #cbd5e1;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 25;
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        .ad-close-btn:hover {
+            background: var(--danger);
+            border-color: var(--danger);
+            color: #ffffff;
+            transform: scale(1.15);
+        }
+
+        /* Ad Content & Placeholder */
+        .ad-slot-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-height: 200px;
+        }
+
+        .ad-placeholder {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 10px;
+            text-align: center;
+            background: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px) 0 0 / 12px 12px;
+        }
+
+        .ad-label {
+            font-size: 8.5px;
+            font-weight: 700;
+            letter-spacing: 0.9px;
+            text-transform: uppercase;
+            color: #60a5fa;
+            background: rgba(96, 165, 250, 0.12);
+            padding: 3px 6px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            border: 1px solid rgba(96, 165, 250, 0.25);
+        }
+
+        .ad-icon {
+            margin-bottom: 6px;
+            color: #64748b;
+        }
+
+        .ad-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #e2e8f0;
+            margin-bottom: 2px;
+        }
+
+        .ad-desc {
+            font-size: 10px;
+            color: #94a3b8;
+            margin-bottom: 8px;
+        }
+
+        .ad-size-hint {
+            font-size: 9px;
+            color: #64748b;
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            background: rgba(0, 0, 0, 0.45);
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        /* ======================================================== */
+        /* CENTER GAME VIEWPORT (CLEAN, DISTRACTION-FREE)            */
+        /* ======================================================== */
+        .game-viewport {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: #000;
+            overflow: hidden;
+            min-width: 0;
+            min-height: 0;
+        }
+
+        #unity-container {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #unity-canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: #000000;
+        }
+
+        /* Initial Asset Download Screen */
+        #loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, #151a2b 0%, #080a11 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 30;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-title {
+            font-size: 34px;
+            font-weight: 800;
+            letter-spacing: 3.5px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #ffffff, #93c5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        #loading-text {
+            color: #94a3b8;
+            font-size: 13px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            margin-bottom: 24px;
+            letter-spacing: 0.5px;
+        }
+
+        .loading-bar-container {
+            width: 320px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 999px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 16px rgba(37, 99, 235, 0.2);
+        }
+
+        #unity-progress-bar-full {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa, #93c5fd);
+            border-radius: 999px;
+            transition: width 0.2s ease;
+            box-shadow: 0 0 14px rgba(96, 165, 250, 0.85);
+        }
+
+        #unity-mobile-warning {
+            display: none;
+            position: absolute;
+            bottom: 20px;
+            color: #fbbf24;
+            font-size: 13px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 8px 16px;
+            border-radius: 6px;
+        }
+
+        /* ======================================================== */
+        /* 5-MINUTE AD BREAK SCREEN OVERLAY                         */
+        /* Triggers every 5 minutes with timer at the top           */
+        /* ======================================================== */
+        .ad-break-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at 50% 50%, #0c1224 0%, #04060c 100%);
+            z-index: 10001;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            box-sizing: border-box;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow-y: auto;
+        }
+
+        .ad-break-overlay.is-active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Intro Loading Overlay - covers the broken poem cutscene */
+        .intro-loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at 50% 40%, #0f172a 0%, #020617 100%);
+            z-index: 10002;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            padding: 20px;
+            box-sizing: border-box;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .intro-loading-overlay.is-active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .intro-loading-spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid rgba(96, 165, 250, 0.15);
+            border-top-color: #60a5fa;
+            border-radius: 50%;
+            animation: introSpin 0.8s linear infinite;
+        }
+
+        @keyframes introSpin {
+            to { transform: rotate(360deg); }
+        }
+
+        .intro-loading-title {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #ffffff 30%, #60a5fa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .intro-loading-subtitle {
+            font-size: 13px;
+            color: #94a3b8;
+            text-align: center;
+        }
+
+        .intro-loading-countdown {
+            font-size: 14px;
+            font-weight: 700;
+            color: #60a5fa;
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            background: rgba(37, 99, 235, 0.2);
+            border: 1px solid rgba(96, 165, 250, 0.4);
+            padding: 6px 16px;
+            border-radius: 999px;
+            box-shadow: 0 0 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .intro-loading-progress {
+            width: 260px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .intro-loading-progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            border-radius: 999px;
+            transition: width 0.3s linear;
+            box-shadow: 0 0 8px rgba(96, 165, 250, 0.6);
+        }
+
+        .intro-ad-row {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            justify-content: center;
+            margin-top: 8px;
+        }
+
+        .loading-ad-banner {
+            width: 100%;
+            max-width: 728px;
+            height: 90px;
+            background: var(--ad-card-bg);
+            border: 1px solid var(--ad-border);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 6px 22px rgba(0, 0, 0, 0.55);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .loading-center-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            width: 100%;
+            max-width: 1020px;
+            margin: 8px 0;
+            flex: 1;
+            min-height: 220px;
+        }
+
+        .loading-ad-box {
+            width: 260px;
+            min-height: 220px;
+            background: var(--ad-card-bg);
+            border: 1px solid var(--ad-border);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 6px 22px rgba(0, 0, 0, 0.55);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .ad-break-status-box {
+            flex: 1;
+            min-width: 280px;
+            max-width: 400px;
+            background: rgba(15, 22, 38, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(96, 165, 250, 0.3);
+            border-radius: 14px;
+            padding: 20px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 10px 36px rgba(0, 0, 0, 0.8), 0 0 20px rgba(59, 130, 246, 0.25);
+            position: relative;
+        }
+
+        .ad-break-emblem {
+            font-size: 30px;
+            margin-bottom: 6px;
+            filter: drop-shadow(0 0 12px rgba(96, 165, 250, 0.9));
+        }
+
+        .ad-break-title {
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #ffffff;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        .ad-break-desc {
+            font-size: 11.5px;
+            color: #94a3b8;
+            margin-bottom: 12px;
+        }
+
+        .countdown-badge {
+            background: rgba(37, 99, 235, 0.25);
+            border: 1px solid rgba(96, 165, 250, 0.45);
+            color: #93c5fd;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 5px 14px;
+            border-radius: 999px;
+            margin-bottom: 10px;
+            box-shadow: 0 0 12px rgba(37, 99, 235, 0.25);
+        }
+
+        .countdown-bar-container {
+            width: 100%;
+            height: 7px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 999px;
+            overflow: hidden;
+            margin-bottom: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .countdown-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa, #93c5fd);
+            border-radius: 999px;
+            transition: width 0.08s linear;
+            box-shadow: 0 0 10px rgba(96, 165, 250, 0.8);
+        }
+
+        .btn-resume-adbreak {
+            margin-top: 10px;
+            background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
+            border: 1px solid rgba(147, 197, 253, 0.5);
+            color: #fff;
+            padding: 7px 18px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+        }
+
+        .btn-resume-adbreak:hover {
+            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.55);
+            transform: translateY(-1px);
+        }
+
+        /* ======================================================== */
+        /* FULLSCREEN HEADS-UP DISPLAY (MINIMAL & POLISHED)         */
+        /* ======================================================== */
+        .fullscreen-hud {
+            position: fixed;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-130%);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 18px;
+            background: rgba(13, 17, 28, 0.94);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(147, 197, 253, 0.25);
+            border-radius: 999px;
+            z-index: 999999;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.8), 0 0 20px rgba(37, 99, 235, 0.25);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .fullscreen-hud.show-hud {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .hud-text {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: #e2e8f0;
+        }
+
+        .hud-timer-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(37, 99, 235, 0.22);
+            border: 1px solid rgba(96, 165, 250, 0.4);
+            color: #93c5fd;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 700;
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        }
+
+        .hud-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .hud-btn:hover {
+            background: rgba(255, 255, 255, 0.18);
+            border-color: rgba(255, 255, 255, 0.35);
+        }
+
+        .hud-btn-exit {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.4);
+            color: #fca5a5;
+        }
+
+        .hud-btn-exit:hover {
+            background: rgba(239, 68, 68, 0.45);
+            border-color: rgba(239, 68, 68, 0.8);
+            color: #fff;
+        }
+
+        kbd {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 4px;
+            padding: 1px 5px;
+            font-size: 10px;
+            font-family: inherit;
+        }
+
+        /* Toast Notifications */
+        #toast-notification {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: rgba(13, 17, 28, 0.94);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(96, 165, 250, 0.4);
+            color: #f1f5f9;
+            padding: 10px 22px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 18px rgba(59, 130, 246, 0.35);
+            z-index: 1000000;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            text-align: center;
+        }
+
+        #toast-notification.toast-active {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Controls Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.82);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .modal-overlay.modal-open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-box {
+            background: #0f1422;
+            border: 1px solid rgba(147, 197, 253, 0.22);
+            border-radius: 16px;
+            width: 460px;
+            max-width: 90vw;
+            padding: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 25px rgba(37, 99, 235, 0.2);
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: #fff;
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 4px;
+            transition: color 0.15s ease;
+        }
+
+        .modal-close:hover {
+            color: #fff;
+        }
+
+        .control-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .control-table td {
+            padding: 8px 4px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .control-table td:last-child {
+            text-align: right;
+            color: #93c5fd;
+            font-weight: 600;
+        }
+
+        /* ======================================================== */
+        /* FULLSCREEN ADAPTATIONS                                   */
+        /* ======================================================== */
+        #site-root.is-fullscreen .site-header {
+            display: none !important;
+        }
+
+        #site-root.is-fullscreen .main-layout {
+            height: 100% !important;
+            width: 100% !important;
+        }
+
+        #site-root.is-fullscreen .ad-sidebar {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 99999;
+            background: rgba(9, 12, 20, 0.88);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+            border-radius: 14px;
+            border: 1px solid rgba(147, 197, 253, 0.2);
+            max-height: 92vh;
+        }
+
+        #site-root.is-fullscreen .ad-sidebar-left {
+            left: 14px;
+        }
+
+        #site-root.is-fullscreen .ad-sidebar-right {
+            right: 14px;
+        }
+
+        .sidebar-hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+<div id="site-root">
+
+    <!-- Top Navigation Bar -->
+    <header class="site-header">
+        <div class="header-title-group">
+            <div class="header-icon-wrap">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#93c5fd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14.5 17.5L3 6V3h3l11.5 11.5"/>
+                    <path d="M13 19l6-6"/>
+                    <path d="M16 16l4 4"/>
+                    <path d="M19 21l2-2"/>
+                </svg>
+            </div>
+            <h1 class="header-title">Hollow Knight</h1>
+            <span class="badge-edition">
+                <span class="badge-pulse-dot"></span> Free Edition
+            </span>
+        </div>
+
+        <!-- 5-Minute Ad Break Timer at Top -->
+        <div class="header-timer-widget" id="header-timer-widget" title="Ad Break plays every 5 minutes">
+            <span class="timer-icon">⏳</span>
+            <span class="timer-label">Ad Break in:</span>
+            <span class="timer-clock" id="ad-break-timer-display">05:00</span>
+        </div>
+
+        <div class="header-actions">
+            <!-- Fullscreen Button -->
+            <button class="btn btn-fullscreen" id="btn-fullscreen-toggle" onclick="toggleFullscreen()" title="Toggle Fullscreen (Double-tap ESC to exit)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+                </svg>
+                <span id="fs-btn-label">Fullscreen</span>
+            </button>
+
+            <!-- Toggle Ads Button -->
+            <button class="btn" id="btn-toggle-ads" onclick="toggleAdsVisibility()" title="Show/Hide sidebar ads">
+                <span id="toggle-ads-icon">👁️</span>
+                <span id="toggle-ads-label">Hide Ads</span>
+            </button>
+
+            <!-- Restore Ads Button -->
+            <button class="btn" id="btn-restore-ads" onclick="restoreAllAds()" style="display: none;" title="Restore all closed ads">
+                ↺ Restore Ads
+            </button>
+
+            <!-- Controls Info Button -->
+            <button class="btn" onclick="openControlsModal()" title="View Game Controls">
+                🎮 Controls
+            </button>
+        </div>
+    </header>
+
+    <!-- Floating Timer Pill Visible at Top in Fullscreen -->
+    <div id="fullscreen-top-timer" class="fullscreen-top-timer" title="Next Ad Break Countdown">
+        <span class="timer-icon">⏳</span>
+        <span class="timer-label">Ad Break in:</span>
+        <span class="timer-clock" id="fs-ad-timer-display">05:00</span>
+    </div>
+
+    <!-- Main Game Layout -->
+    <main class="main-layout" id="main-layout">
+
+        <!-- ======================================================== -->
+        <!-- LEFT SIDEBAR: 3 ADS (LEFT TOP, LEFT MIDDLE, LEFT BOTTOM) -->
+        <!-- ======================================================== -->
+        <aside class="ad-sidebar ad-sidebar-left" id="sidebar-left">
+
+            <!-- GOOGLE AD #1: LEFT SIDE - TOP -->
+            <div class="ad-card" id="ad-card-left-1">
+                <button class="ad-close-btn" onclick="closeSingleAd('ad-card-left-1')" title="Close this ad">✕</button>
+                <div class="ad-slot-body" id="ad-slot-left-1">
+                    <!-- ▼▼▼ PASTE GOOGLE AD CODE #1 (LEFT TOP) BELOW THIS LINE ▼▼▼ -->
+                    <div class="ad-placeholder">
+                        <span class="ad-label">Advertisement</span>
+                        <div class="ad-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                                <line x1="8" y1="21" x2="16" y2="21"></line>
+                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                            </svg>
+                        </div>
+                        <div class="ad-title">Google Ad #1</div>
+                        <div class="ad-desc">Left Side • Top</div>
+                        <span class="ad-size-hint">160 × 600 / Banner</span>
+                    </div>
+                    <!-- ▲▲▲ END GOOGLE AD CODE #1 ▲▲▲ -->
+                </div>
+            </div>
+
+            <!-- GOOGLE AD #2: LEFT SIDE - MIDDLE -->
+            <div class="ad-card" id="ad-card-left-2">
+                <button class="ad-close-btn" onclick="closeSingleAd('ad-card-left-2')" title="Close this ad">✕</button>
+                <div class="ad-slot-body" id="ad-slot-left-2">
+                    <!-- ▼▼▼ PASTE GOOGLE AD CODE #2 (LEFT MIDDLE) BELOW THIS LINE ▼▼▼ -->
+                    <div class="ad-placeholder">
+                        <span class="ad-label">Advertisement</span>
+                        <div class="ad-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                                <line x1="8" y1="21" x2="16" y2="21"></line>
+                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                            </svg>
+                        </div>
+                        <div class="ad-title">Google Ad #2</div>
+                        <div class="ad-desc">Left Side • Middle</div>
+                        <span class="ad-size-hint">160 × 600 / Banner</span>
+                    </div>
+                    <!-- ▲▲▲ END GOOGLE AD CODE #2 ▲▲▲ -->
+                </div>
+            </div>
+
+            <!-- GOOGLE AD #3: LEFT SIDE - BOTTOM -->
+            <div class="ad-card" id="ad-card-left-3">
+                <button class="ad-close-btn" onclick="closeSingleAd('ad-card-left-3')" title="Close this ad">✕</button>
+                <div class="ad-slot-body" id="ad-slot-left-3">
+                    <!-- ▼▼▼ PASTE GOOGLE AD CODE #3 (LEFT BOTTOM) BELOW THIS LINE ▼▼▼ -->
+                    <div class="ad-placeholder">
+                        <span class="ad-label">Advertisement</span>
+                        <div class="ad-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                                <line x1="8" y1="21" x2="16" y2="21"></line>
+                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                            </svg>
+                        </div>
+                        <div class="ad-title">Google Ad #3</div>
+                        <div class="ad-desc">Left Side • Bottom</div>
+                        <span class="ad-size-hint">160 × 600 / Banner</span>
+                    </div>
+                    <!-- ▲▲▲ END GOOGLE AD CODE #3 ▲▲▲ -->
+                </div>
+            </div>
+
+        </aside>
+
+        <!-- ======================================================== -->
+        <!-- CENTER: GAME VIEWPORT (UNITY WEBGL CANVAS)               -->
+        <!-- Clean Canvas - Pure Gameplay Experience                  -->
+        <!-- ======================================================== -->
+        <section class="game-viewport" id="game-viewport">
+
+            <!-- ==================================================== -->
+            <!-- INTRO LOADING OVERLAY (covers broken poem cutscene) -->
+            <!-- Shows a loading screen with ads while intro plays   -->
+            <!-- ==================================================== -->
+            <div id="intro-loading-overlay" class="intro-loading-overlay">
+                <div class="intro-loading-spinner"></div>
+                <div class="intro-loading-title">Loading World...</div>
+                <div class="intro-loading-subtitle">Preparing King's Pass — Please wait</div>
+                <div class="intro-loading-countdown" id="intro-countdown">12s remaining</div>
+                <div class="intro-loading-progress">
+                    <div class="intro-loading-progress-fill" id="intro-progress-fill"></div>
+                </div>
+
+                <!-- ADS SHOWN DURING INTRO LOADING -->
+                <div class="intro-ad-row">
+                    <!-- INTRO AD LEFT -->
+                    <div class="loading-ad-box" id="intro-ad-left">
+                        <!-- ▼▼▼ PASTE INTRO LOADING AD #1 (300x250) BELOW ▼▼▼ -->
+                        <div class="ad-placeholder">
+                            <span class="ad-label">Advertisement</span>
+                            <div class="ad-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                    <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                                </svg>
+                            </div>
+                            <div class="ad-title">Loading Ad #1</div>
+                            <span class="ad-size-hint">300 × 250 / Rectangle</span>
+                        </div>
+                        <!-- ▲▲▲ END INTRO LOADING AD #1 ▲▲▲ -->
+                    </div>
+
+                    <!-- INTRO AD RIGHT -->
+                    <div class="loading-ad-box" id="intro-ad-right">
+                        <!-- ▼▼▼ PASTE INTRO LOADING AD #2 (300x250) BELOW ▼▼▼ -->
+                        <div class="ad-placeholder">
+                            <span class="ad-label">Advertisement</span>
+                            <div class="ad-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                    <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                                </svg>
+                            </div>
+                            <div class="ad-title">Loading Ad #2</div>
+                            <span class="ad-size-hint">300 × 250 / Rectangle</span>
+                        </div>
+                        <!-- ▲▲▲ END INTRO LOADING AD #2 ▲▲▲ -->
+                    </div>
+                </div>
+
+                <!-- INTRO BOTTOM BANNER AD -->
+                <div class="loading-ad-banner" id="intro-ad-bottom">
+                    <!-- ▼▼▼ PASTE INTRO LOADING AD #3 (728x90) BELOW ▼▼▼ -->
+                    <div class="ad-placeholder" style="flex-direction: row; gap: 14px;">
+                        <span class="ad-label">Advertisement</span>
+                        <div class="ad-title">Loading Ad #3</div>
+                        <span class="ad-size-hint">728 × 90 / Leaderboard</span>
+                    </div>
+                    <!-- ▲▲▲ END INTRO LOADING AD #3 ▲▲▲ -->
+                </div>
+            </div>
+
+            <!-- ==================================================== -->
+            <!-- 5-MINUTE AD BREAK SCREEN OVERLAY                     -->
+            <!-- Appears every 5 minutes during gameplay              -->
+            <!-- ==================================================== -->
+            <div id="ad-break-overlay" class="ad-break-overlay">
+                <!-- TOP LEADERBOARD AD ON AD BREAK SCREEN -->
+                <div class="loading-ad-banner" id="adbreak-ad-top">
+                    <!-- ▼▼▼ PASTE AD BREAK GOOGLE AD #1 (TOP BANNER 728x90) BELOW ▼▼▼ -->
+                    <div class="ad-placeholder" style="flex-direction: row; gap: 14px;">
+                        <span class="ad-label">Advertisement</span>
+                        <div class="ad-title">Ad Break Google Ad #1</div>
+                        <span class="ad-size-hint">728 × 90 / Leaderboard</span>
+                    </div>
+                    <!-- ▲▲▲ END AD BREAK GOOGLE AD #1 ▲▲▲ -->
+                </div>
+
+                <!-- CENTER ROW: LEFT AD + AD BREAK COUNTDOWN BOX + RIGHT AD -->
+                <div class="loading-center-row">
+
+                    <!-- LEFT AD ON AD BREAK SCREEN -->
+                    <div class="loading-ad-box" id="adbreak-ad-left">
+                        <!-- ▼▼▼ PASTE AD BREAK GOOGLE AD #2 (LEFT 300x250) BELOW ▼▼▼ -->
+                        <div class="ad-placeholder">
+                            <span class="ad-label">Advertisement</span>
+                            <div class="ad-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                    <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                                </svg>
+                            </div>
+                            <div class="ad-title">Ad Break Ad #2</div>
+                            <div class="ad-desc">Left Box</div>
+                            <span class="ad-size-hint">300 × 250 / Rectangle</span>
+                        </div>
+                        <!-- ▲▲▲ END AD BREAK GOOGLE AD #2 ▲▲▲ -->
+                    </div>
+
+                    <!-- CENTER AD BREAK STATUS & PROGRESS BOX -->
+                    <div class="ad-break-status-box">
+                        <div class="ad-break-emblem">📺</div>
+                        <h2 class="ad-break-title">AD BREAK</h2>
+                        <p class="ad-break-desc">Supporting Hollow Knight Free Edition</p>
+
+                        <div class="countdown-badge">
+                            Resuming in <span id="adbreak-countdown-sec">10</span>s
+                        </div>
+
+                        <div class="countdown-bar-container">
+                            <div class="countdown-bar-fill" id="adbreak-bar-fill"></div>
+                        </div>
+
+                        <button id="btn-resume-adbreak" class="btn-resume-adbreak" onclick="closeAdBreak()">
+                            ✕ Resume Game
+                        </button>
+                    </div>
+
+                    <!-- RIGHT AD ON AD BREAK SCREEN -->
+                    <div class="loading-ad-box" id="adbreak-ad-right">
+                        <!-- ▼▼▼ PASTE AD BREAK GOOGLE AD #3 (RIGHT 300x250) BELOW ▼▼▼ -->
+                        <div class="ad-placeholder">
+                            <span class="ad-label">Advertisement</span>
+                            <div class="ad-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                    <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                                </svg>
+                            </div>
+                            <div class="ad-title">Ad Break Ad #3</div>
+                            <div class="ad-desc">Right Box</div>
+                            <span class="ad-size-hint">300 × 250 / Rectangle</span>
+                        </div>
+                        <!-- ▲▲▲ END AD BREAK GOOGLE AD #3 ▲▲▲ -->
+                    </div>
+
+                </div>
+
+                <!-- BOTTOM LEADERBOARD AD ON AD BREAK SCREEN -->
+                <div class="loading-ad-banner" id="adbreak-ad-bottom">
+                    <!-- ▼▼▼ PASTE AD BREAK GOOGLE AD #4 (BOTTOM BANNER 728x90) BELOW ▼▼▼ -->
+                    <div class="ad-placeholder" style="flex-direction: row; gap: 14px;">
+                        <span class="ad-label">Advertisement</span>
+                        <div class="ad-title">Ad Break Google Ad #4</div>
+                        <span class="ad-size-hint">728 × 90 / Leaderboard</span>
+                    </div>
+                    <!-- ▲▲▲ END AD BREAK GOOGLE AD #4 ▲▲▲ -->
+                </div>
+            </div>
+
+            <!-- Initial Asset Download Screen -->
+            <div id="loading-overlay">
+                <div class="loading-title">Hollow Knight</div>
+                <div id="loading-text">INITIALIZING GAME ENGINE...</div>
+                <div class="loading-bar-container">
+                    <div id="unity-progress-bar-full"></div>
+                </div>
+                <div id="unity-mobile-warning">⚠️ WebGL builds are best experienced on desktop browsers.</div>
+            </div>
+
+            <!-- Unity Canvas Container -->
+            <div id="unity-container">
+                <canvas id="unity-canvas"></canvas>
+            </div>
+
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- RIGHT SIDEBAR: 3 ADS (RIGHT TOP, RIGHT MIDDLE, RIGHT BOT)-->
+        <!-- ======================================================== -->
+        <aside class="ad-sidebar ad-sidebar-right" id="sidebar-right">
+
+            <!-- GOOGLE AD #4: RIGHT SIDE - TOP -->
+            <div class="ad-card" id="ad-card-right-1">
+                <button class="ad-close-btn" onclick="closeSingleAd('ad-card-right-1')" title="Close this ad">✕</button>
+                <div class="ad-slot-body" id="ad-slot-right-1">
+                    <!-- ▼▼▼ PASTE GOOGLE AD CODE #4 (RIGHT TOP) BELOW THIS LINE ▼▼▼ -->
+                    <div class="ad-placeholder">
+                        <span class="ad-label">Advertisement</span>
+                        <div class="ad-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                                <line x1="8" y1="21" x2="16" y2="21"></line>
+                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                            </svg>
+                        </div>
+                        <div class="ad-title">Google Ad #4</div>
+                        <div class="ad-desc">Right Side • Top</div>
+                        <span class="ad-size-hint">160 × 600 / Banner</span>
+                    </div>
+                    <!-- ▲▲▲ END GOOGLE AD CODE #4 ▲▲▲ -->
+                </div>
+            </div>
+
+            <!-- GOOGLE AD #5: RIGHT SIDE - MIDDLE -->
+            <div class="ad-card" id="ad-card-right-2">
+                <button class="ad-close-btn" onclick="closeSingleAd('ad-card-right-2')" title="Close this ad">✕</button>
+                <div class="ad-slot-body" id="ad-slot-right-2">
+                    <!-- ▼▼▼ PASTE GOOGLE AD CODE #5 (RIGHT MIDDLE) BELOW THIS LINE ▼▼▼ -->
+                    <div class="ad-placeholder">
+                        <span class="ad-label">Advertisement</span>
+                        <div class="ad-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                                <line x1="8" y1="21" x2="16" y2="21"></line>
+                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                            </svg>
+                        </div>
+                        <div class="ad-title">Google Ad #5</div>
+                        <div class="ad-desc">Right Side • Middle</div>
+                        <span class="ad-size-hint">160 × 600 / Banner</span>
+                    </div>
+                    <!-- ▲▲▲ END GOOGLE AD CODE #5 ▲▲▲ -->
+                </div>
+            </div>
+
+            <!-- GOOGLE AD #6: RIGHT SIDE - BOTTOM -->
+            <div class="ad-card" id="ad-card-right-3">
+                <button class="ad-close-btn" onclick="closeSingleAd('ad-card-right-3')" title="Close this ad">✕</button>
+                <div class="ad-slot-body" id="ad-slot-right-3">
+                    <!-- ▼▼▼ PASTE GOOGLE AD CODE #6 (RIGHT BOTTOM) BELOW THIS LINE ▼▼▼ -->
+                    <div class="ad-placeholder">
+                        <span class="ad-label">Advertisement</span>
+                        <div class="ad-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                                <line x1="8" y1="21" x2="16" y2="21"></line>
+                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                            </svg>
+                        </div>
+                        <div class="ad-title">Google Ad #6</div>
+                        <div class="ad-desc">Right Side • Bottom</div>
+                        <span class="ad-size-hint">160 × 600 / Banner</span>
+                    </div>
+                    <!-- ▲▲▲ END GOOGLE AD CODE #6 ▲▲▲ -->
+                </div>
+            </div>
+
+        </aside>
+
+    </main>
+
+    <!-- ======================================================== -->
+    <!-- FULLSCREEN FLOATING HEADS-UP DISPLAY (HUD)               -->
+    <!-- Appears at top on hover or initially in fullscreen       -->
+    <!-- ======================================================== -->
+    <div id="fullscreen-hud" class="fullscreen-hud">
+        <span class="hud-text">⚔️ Fullscreen Mode</span>
+        <div class="hud-timer-badge">
+            <span>⏳ Next Break:</span>
+            <span id="hud-timer-display">05:00</span>
+        </div>
+        <button class="hud-btn" id="hud-toggle-ads-btn" onclick="toggleAdsVisibility()">
+            <span id="hud-toggle-ads-icon">👁️</span>
+            <span id="hud-toggle-ads-label">Hide Ads</span>
+        </button>
+        <button class="hud-btn" id="hud-restore-ads-btn" onclick="restoreAllAds()" style="display: none;">
+            ↺ Restore Ads
+        </button>
+        <button class="hud-btn hud-btn-exit" onclick="exitFullscreen()">
+            🗗 Exit Fullscreen <kbd>Double ESC</kbd>
+        </button>
+    </div>
+
+    <!-- Toast Notification (Double-Tap ESC & Status Info) -->
+    <div id="toast-notification"></div>
+
+    <!-- Controls Modal -->
+    <div class="modal-overlay" id="controls-modal" onclick="closeControlsModal(event)">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3 class="modal-title">⚔️ Game Controls & Shortcuts</h3>
+                <button class="modal-close" onclick="closeControlsModal()">✕</button>
+            </div>
+            <table class="control-table">
+                <tr><td>Movement</td><td><kbd>Arrow Keys</kbd> or <kbd>WASD</kbd></td></tr>
+                <tr><td>Jump / Confirm</td><td><kbd>Z</kbd></td></tr>
+                <tr><td>Attack (Nail)</td><td><kbd>X</kbd></td></tr>
+                <tr><td>Dash</td><td><kbd>C</kbd></td></tr>
+                <tr><td>Focus / Cast Spell</td><td><kbd>A</kbd></td></tr>
+                <tr><td>Quick Cast</td><td><kbd>S</kbd></td></tr>
+                <tr><td>Dream Nail</td><td><kbd>D</kbd></td></tr>
+                <tr><td>Super Dash</td><td><kbd>S</kbd></td></tr>
+                <tr><td>Inventory / Map</td><td><kbd>Tab</kbd> or <kbd>I</kbd></td></tr>
+                <tr><td>In-Game Menu (Pause)</td><td><kbd>Single ESC</kbd></td></tr>
+                <tr><td><strong>Exit Fullscreen</strong></td><td><strong><kbd>Double-Tap ESC</kbd></strong></td></tr>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- INDEXEDDB CACHE & UNITY WEBGL ENGINE SCRIPTS                 -->
+<!-- ============================================================ -->
+<script>
+    const DB_NAME = "cachedb";
+    const STORE_NAME = "files";
+
+    function openCacheDB() {
+        return new Promise((resolve, reject) => {
+            const req = indexedDB.open(DB_NAME, 1);
+            req.onupgradeneeded = () => {
+                const db = req.result;
+                if (!db.objectStoreNames.contains(STORE_NAME)) {
+                    db.createObjectStore(STORE_NAME);
+                }
+            };
+            req.onsuccess = () => resolve(req.result);
+            req.onerror = () => reject(req.error);
+        });
+    }
+
+    async function saveToCache(key, blob) {
+        const db = await openCacheDB();
+        return new Promise((resolve, reject) => {
+            const tx = db.transaction(STORE_NAME, "readwrite");
+            tx.objectStore(STORE_NAME).put(blob, key);
+            tx.oncomplete = () => resolve();
+            tx.onerror = () => reject(tx.error);
+        });
+    }
+
+    async function loadFromCache(key) {
+        const db = await openCacheDB();
+        return new Promise((resolve, reject) => {
+            const tx = db.transaction(STORE_NAME, "readonly");
+            const req = tx.objectStore(STORE_NAME).get(key);
+            req.onsuccess = () => resolve(req.result || null);
+            req.onerror = () => reject(req.error);
+        });
+    }
+
+    async function deleteFromCache(key) {
+        const db = await openCacheDB();
+        return new Promise((resolve, reject) => {
+            const tx = db.transaction(STORE_NAME, "readwrite");
+            tx.objectStore(STORE_NAME).delete(key);
+            tx.oncomplete = () => resolve();
+            tx.onerror = () => reject(tx.error);
+        });
+    }
+
+    const loadingText = document.querySelector("#loading-text");
+    const progressBarFull = document.querySelector("#unity-progress-bar-full");
+    const loadingOverlay = document.querySelector("#loading-overlay");
+    let loadedBytes = 0;
+    const mbTotal = '912.81';
+
+    async function fetchWithProgress(url) {
+        const response = await fetch(url);
+        const reader = response.body.getReader();
+        let chunks = [];
+        let received = 0;
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            received += value.length;
+            loadedBytes += value.length;
+            chunks.push(value);
+            let mbDone = (loadedBytes / (1024 * 1024)).toFixed(2);
+            loadingText.textContent = `DOWNLOADING ASSETS... ${mbDone} MB / ${mbTotal} MB`;
+            let percent = Math.min(100, Math.round((loadedBytes / (912.81 * 1024 * 1024)) * 100));
+            progressBarFull.style.width = percent + "%";
+        }
+        let fullBuffer = new Uint8Array(received);
+        let offset = 0;
+        for (let chunk of chunks) {
+            fullBuffer.set(chunk, offset);
+            offset += chunk.length;
+        }
+        return fullBuffer.buffer;
+    }
+
+    async function mergeFiles(fileParts, cacheKey) {
+        const cached = await loadFromCache(cacheKey);
+        if (cached) {
+            loadingText.textContent = `LOADED FROM CACHE: ${cacheKey}`;
+            return URL.createObjectURL(cached);
+        }
+        const buffers = await Promise.all(fileParts.map(part => fetchWithProgress(part)));
+        const mergedBlob = new Blob(buffers);
+        await saveToCache(cacheKey, mergedBlob);
+        return URL.createObjectURL(mergedBlob);
+    }
+
+    function getParts(file, start, end) {
+        let parts = [];
+        for (let i = start; i <= end; i++) {
+            parts.push(file + ".part" + i);
+        }
+        return parts;
+    }
+
+    // Initialize Canvas Resizing
+    const canvas = document.querySelector("#unity-canvas");
+    const gameViewport = document.querySelector("#game-viewport");
+
+    function resizeCanvas() {
+        if (!canvas || !gameViewport) return;
+        const rect = gameViewport.getBoundingClientRect();
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+        canvas.style.width = rect.width + "px";
+        canvas.style.height = rect.height + "px";
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+
+    // ========================================================
+    // AUTOMATIC INTRO CUTSCENE HANDLER
+    // Shows a loading overlay with ads on top of the broken
+    // poem cutscene, then tries Unity SendMessage to skip it.
+    // Synthetic dispatchEvent doesn't work (isTrusted=false).
+    // ========================================================
+    let isGameEngineLoaded = false;
+    let titleScreenReady = false;
+    let introOverlayActive = false;
+    let introOverlayTimer = null;
+
+    function triggerIntroLoadingScreen(reason) {
+        // Only trigger once per session
+        if (introOverlayActive || window._introHandled) return;
+        window._introHandled = true;
+        introOverlayActive = true;
+
+        console.log("[Intro Handler] Showing loading overlay:", reason);
+
+        const overlay = document.getElementById("intro-loading-overlay");
+        const countdownEl = document.getElementById("intro-countdown");
+        const progressFill = document.getElementById("intro-progress-fill");
+        if (!overlay) return;
+
+        overlay.classList.add("is-active");
+
+        // Try SendMessage to skip the cutscene in Unity
+        trySendMessageSkip();
+
+        // 12-second countdown with progress bar
+        const totalDuration = 12000;
+        const startTime = performance.now();
+
+        clearInterval(introOverlayTimer);
+        introOverlayTimer = setInterval(() => {
+            const elapsed = performance.now() - startTime;
+            const progress = Math.min(100, (elapsed / totalDuration) * 100);
+            const remaining = Math.max(0, Math.ceil((totalDuration - elapsed) / 1000));
+
+            if (progressFill) progressFill.style.width = progress + "%";
+            if (countdownEl) countdownEl.textContent = remaining + "s remaining";
+
+            // Keep trying SendMessage during the countdown
+            if (Math.floor(elapsed / 1000) % 2 === 0) {
+                trySendMessageSkip();
+            }
+
+            if (elapsed >= totalDuration) {
+                dismissIntroOverlay();
+            }
+        }, 200);
+    }
+
+    function trySendMessageSkip() {
+        if (!window.unityInstance) return;
+        const inst = window.unityInstance;
+
+        // Try various known Hollow Knight game objects and methods
+        const attempts = [
+            ["GameManager", "SkipCutscene"],
+            ["GameManager", "ContinueGame"],
+            ["GameManager", "SkipOpeningSequence"],
+            ["CinematicPlayer", "Skip"],
+            ["CinematicPlayer", "SkipCutscene"],
+            ["OpeningSequence", "Skip"],
+            ["AnimatorSequence", "Skip"],
+            ["UIManager", "SkipCutscene"],
+            ["SkipPrompt", "SkipScene"],
+            ["SkipPrompt", "Skip"],
+        ];
+
+        for (const [obj, method] of attempts) {
+            try {
+                inst.SendMessage(obj, method);
+                console.log(`[Skip] SendMessage("${obj}", "${method}") sent`);
+            } catch (e) {
+                // Silently ignore — game object may not exist
+            }
+        }
+    }
+
+    function dismissIntroOverlay() {
+        clearInterval(introOverlayTimer);
+        introOverlayActive = false;
+
+        const overlay = document.getElementById("intro-loading-overlay");
+        if (overlay) {
+            overlay.classList.remove("is-active");
+        }
+
+        // Focus the canvas so the player can interact
+        const unityCanvas = document.querySelector("#unity-canvas");
+        if (unityCanvas) unityCanvas.focus();
+
+        console.log("[Intro Handler] Loading overlay dismissed");
+    }
+
+    // Hook Emscripten virtual file system for save file operations
+    function hookEmscriptenFS(targetFS) {
+        if (!targetFS || targetFS._hookedForSaves) return;
+        targetFS._hookedForSaves = true;
+        console.log("[FS] Hooked Emscripten FS for save access detection");
+
+        const origOpen = targetFS.open;
+        if (typeof origOpen === "function") {
+            targetFS.open = function(path, flags, mode) {
+                checkSaveFileAccess(path, "open");
+                return origOpen.apply(this, arguments);
+            };
+        }
+
+        const origWrite = targetFS.writeFile;
+        if (typeof origWrite === "function") {
+            targetFS.writeFile = function(path, data, opts) {
+                checkSaveFileAccess(path, "write");
+                return origWrite.apply(this, arguments);
+            };
+        }
+    }
+
+    function checkSaveFileAccess(path, action) {
+        if (typeof path === "string") {
+            const low = path.toLowerCase();
+            if (low.includes("user1.dat") || low.includes("user2.dat") || low.includes("user3.dat") || low.includes("user4.dat")) {
+                console.log(`[FS Event] Save slot: ${path} (${action})`);
+                // Directly trigger intro skip regardless of title screen state
+                triggerIntroLoadingScreen("Save file selected: " + path);
+            }
+        }
+    }
+
+    // Define global FS interceptor
+    let _globalFS = window.FS;
+    Object.defineProperty(window, "FS", {
+        configurable: true,
+        enumerable: true,
+        get: () => _globalFS,
+        set: (fsObj) => {
+            _globalFS = fsObj;
+            hookEmscriptenFS(fsObj);
+        }
+    });
+
+    // Boot Unity Game
+    (async () => {
+        try {
+            resizeCanvas();
+            const [dataUrl, wasmurl] = await Promise.all([
+                mergeFiles(getParts("Build/hktruffled.data", 1, 45), "hktruffled.data"),
+                mergeFiles(getParts("Build/hktruffled.wasm", 1, 2), "hktruffled.wasm"),
+            ]);
+            var buildUrl = "Build";
+            var loaderUrl = buildUrl + "/hktruffled.loader.js";
+            var config = {
+                dataUrl: dataUrl,
+                frameworkUrl: buildUrl + "/hktruffled.framework.js",
+                codeUrl: wasmurl,
+                streamingAssetsUrl: "StreamingAssets",
+                companyName: "Team Cherry & Truffled",
+                productName: "Hollow Knight",
+                productVersion: "1.1",
+                print: function(text) {
+                    console.log("[Unity]", text);
+                    if (typeof text === "string") {
+                        const low = text.toLowerCase();
+                        // Track title/main menu
+                        if (low.includes("menu_title") || low.includes("titlescreen") || low.includes("main menu") || low.includes("gamemanager: start")) {
+                            titleScreenReady = true;
+                        }
+                        // Detect when the intro sequence / cutscene loads and skip it immediately!
+                        if (low.includes("opening_sequence") || 
+                            low.includes("openingsequence") || 
+                            low.includes("cinematic") || 
+                            low.includes("prologue") || 
+                            low.includes("wilds beyond") ||
+                            (titleScreenReady && (low.includes("startnewgame") || low.includes("start game") || low.includes("tutorial_01")))) {
+                            triggerIntroLoadingScreen("Unity Log scene transition: " + text);
+                        }
+                    }
+                },
+                printErr: function(text) {
+                    console.warn("[Unity Err]", text);
+                }
+            };
+
+            var script = document.createElement("script");
+            script.src = loaderUrl;
+            script.onload = () => {
+                loadingText.textContent = "INITIALIZING HOLLOW KNIGHT...";
+                createUnityInstance(canvas, config, (progress) => {
+                    progressBarFull.style.width = 100 * progress + "%";
+                }).then((unityInstance) => {
+                    window.unityInstance = unityInstance;
+                    isGameEngineLoaded = true;
+
+                    loadingOverlay.style.opacity = "0";
+                    setTimeout(() => {
+                        loadingOverlay.remove();
+                        titleScreenReady = true;
+                        // Start 5-Minute Ad Break Countdown
+                        startAdBreakCountdownTimer();
+                    }, 500);
+
+                    resizeCanvas();
+                    showToast("⚔️ Hollow Knight Ready! Double-Tap [ESC] for Fullscreen", 3500);
+
+                    // Hook Emscripten FS
+                    try {
+                        const emFS = unityInstance.Module ? unityInstance.Module.FS : (window.FS || null);
+                        if (emFS) {
+                            hookEmscriptenFS(emFS);
+                        }
+                    } catch (fsErr) {
+                        console.warn("[FS Hook Error]", fsErr);
+                    }
+                }).catch(async (message) => {
+                    await deleteFromCache("hktruffled.wasm");
+                    alert("Game error: " + message);
+                });
+            };
+            document.body.appendChild(script);
+        } catch (err) {
+            console.error("Initialization failed:", err);
+            loadingText.textContent = "Error loading game: " + err.message;
+        }
+    })();
+
+
+</script>
+
+<!-- ============================================================ -->
+<!-- 5-MINUTE AD BREAK TIMER & FULLSCREEN LOGIC                   -->
+<!-- ============================================================ -->
+<script>
+    const siteRoot = document.getElementById("site-root");
+    const fullscreenBtnLabel = document.getElementById("fs-btn-label");
+    const fullscreenHud = document.getElementById("fullscreen-hud");
+    const toastEl = document.getElementById("toast-notification");
+
+    // Ad Break Elements
+    const adBreakOverlay = document.getElementById("ad-break-overlay");
+    const adBreakTimerDisplay = document.getElementById("ad-break-timer-display");
+    const fsAdTimerDisplay = document.getElementById("fs-ad-timer-display");
+    const hudTimerDisplay = document.getElementById("hud-timer-display");
+    const adbreakCountdownSec = document.getElementById("adbreak-countdown-sec");
+    const adbreakBarFill = document.getElementById("adbreak-bar-fill");
+
+    let hudHideTimeout = null;
+
+    // Toast Notifications
+    let toastTimeout = null;
+    function showToast(message, duration = 2500) {
+        if (!toastEl) return;
+        toastEl.textContent = message;
+        toastEl.classList.add("toast-active");
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+            toastEl.classList.remove("toast-active");
+        }, duration);
+    }
+
+    // ========================================================
+    // 5-MINUTE AD BREAK TIMER & SCREEN
+    // Counts down every 5 minutes (300s) with timer at the top
+    // ========================================================
+    const AD_BREAK_INTERVAL_SECONDS = 300; // 5 minutes
+    let adBreakRemaining = AD_BREAK_INTERVAL_SECONDS;
+    let adBreakTimerInterval = null;
+    let isAdBreakActive = false;
+    let adBreakScreenInterval = null;
+
+    function formatTime(seconds) {
+        const m = Math.floor(seconds / 60);
+        const s = seconds % 60;
+        return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    function updateTopTimersDisplay(timeStr) {
+        if (adBreakTimerDisplay) adBreakTimerDisplay.textContent = timeStr;
+        if (fsAdTimerDisplay) fsAdTimerDisplay.textContent = timeStr;
+        if (hudTimerDisplay) hudTimerDisplay.textContent = timeStr;
+    }
+
+    function startAdBreakCountdownTimer() {
+        clearInterval(adBreakTimerInterval);
+        updateTopTimersDisplay(formatTime(adBreakRemaining));
+
+        adBreakTimerInterval = setInterval(() => {
+            if (isAdBreakActive) return;
+
+            adBreakRemaining--;
+
+            if (adBreakRemaining <= 0) {
+                trigger5MinAdBreak();
+            } else {
+                updateTopTimersDisplay(formatTime(adBreakRemaining));
+            }
+        }, 1000);
+    }
+
+    function resetAdBreakCountdown() {
+        adBreakRemaining = AD_BREAK_INTERVAL_SECONDS;
+        updateTopTimersDisplay(formatTime(adBreakRemaining));
+    }
+
+    function trigger5MinAdBreak() {
+        if (isAdBreakActive || !adBreakOverlay) return;
+
+        isAdBreakActive = true;
+        updateTopTimersDisplay("00:00");
+
+        adBreakOverlay.classList.add("is-active");
+
+        const breakDuration = 10000; // 10 seconds ad break
+        const startTime = performance.now();
+
+        if (adbreakCountdownSec) adbreakCountdownSec.textContent = "10";
+        if (adbreakBarFill) adbreakBarFill.style.width = "0%";
+
+        clearInterval(adBreakScreenInterval);
+        adBreakScreenInterval = setInterval(() => {
+            const elapsed = performance.now() - startTime;
+            const progress = Math.min(100, (elapsed / breakDuration) * 100);
+            const remaining = Math.max(0, Math.ceil((breakDuration - elapsed) / 1000));
+
+            if (adbreakBarFill) adbreakBarFill.style.width = progress + "%";
+            if (adbreakCountdownSec) adbreakCountdownSec.textContent = remaining;
+
+            if (elapsed >= breakDuration) {
+                clearInterval(adBreakScreenInterval);
+                closeAdBreak();
+            }
+        }, 60);
+    }
+
+    function closeAdBreak() {
+        clearInterval(adBreakScreenInterval);
+        isAdBreakActive = false;
+
+        if (adBreakOverlay) {
+            adBreakOverlay.classList.remove("is-active");
+        }
+
+        resetAdBreakCountdown();
+        showToast("⚔️ Game Resumed! Next ad break in 5 minutes", 3000);
+
+        // Refocus canvas
+        const unityCanvas = document.querySelector("#unity-canvas");
+        if (unityCanvas) unityCanvas.focus();
+    }
+
+    // ========================================================
+    // FULLSCREEN CONTROLS & ESCAPE KEY HANDLING
+    // ========================================================
+    async function toggleFullscreen() {
+        if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+            enterFullscreen();
+        } else {
+            exitFullscreen();
+        }
+    }
+
+    async function enterFullscreen() {
+        try {
+            if (siteRoot.requestFullscreen) {
+                await siteRoot.requestFullscreen();
+            } else if (siteRoot.webkitRequestFullscreen) {
+                await siteRoot.webkitRequestFullscreen();
+            }
+        } catch (err) {
+            console.warn("Fullscreen request error:", err);
+        }
+    }
+
+    function exitFullscreen() {
+        try {
+            if (document.exitFullscreen) {
+                document.exitFullscreen().catch(() => {});
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            }
+        } catch (err) {
+            console.warn("Exit fullscreen error:", err);
+        }
+    }
+
+    // Monitor Fullscreen State Changes
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+
+    async function handleFullscreenChange() {
+        const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+
+        if (isFs) {
+            siteRoot.classList.add("is-fullscreen");
+            if (fullscreenBtnLabel) fullscreenBtnLabel.textContent = "Exit Fullscreen";
+
+            // Keyboard Lock API for Escape key
+            if (navigator.keyboard && typeof navigator.keyboard.lock === "function") {
+                try {
+                    await navigator.keyboard.lock(["Escape"]);
+                    console.log("Keyboard Lock active: Escape key captured");
+                } catch (err) {
+                    console.warn("Keyboard Lock failed (may require secure origin or permissions):", err);
+                }
+            }
+
+            showFullscreenHudTemporarily();
+            showToast("🎮 Fullscreen Active • Press [ESC] for Game Menu • Double-Tap [ESC] to Exit", 3500);
+        } else {
+            siteRoot.classList.remove("is-fullscreen");
+            if (fullscreenBtnLabel) fullscreenBtnLabel.textContent = "Fullscreen";
+
+            if (navigator.keyboard && typeof navigator.keyboard.unlock === "function") {
+                try {
+                    navigator.keyboard.unlock();
+                } catch (err) {}
+            }
+
+            if (fullscreenHud) fullscreenHud.classList.remove("show-hud");
+        }
+
+        setTimeout(resizeCanvas, 100);
+    }
+
+    function showFullscreenHudTemporarily() {
+        if (!fullscreenHud) return;
+        fullscreenHud.classList.add("show-hud");
+        clearTimeout(hudHideTimeout);
+        hudHideTimeout = setTimeout(() => {
+            fullscreenHud.classList.remove("show-hud");
+        }, 3500);
+    }
+
+    window.addEventListener("mousemove", (e) => {
+        const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+        if (isFs && fullscreenHud) {
+            if (e.clientY <= 55) {
+                fullscreenHud.classList.add("show-hud");
+                clearTimeout(hudHideTimeout);
+            } else {
+                if (!hudHideTimeout) {
+                    hudHideTimeout = setTimeout(() => {
+                        fullscreenHud.classList.remove("show-hud");
+                        hudHideTimeout = null;
+                    }, 1200);
+                }
+            }
+        }
+    });
+
+    // ========================================================
+    // DOUBLE-TAP ESC KEY DETECTION IN FULLSCREEN
+    // Single Tap ESC: Passes to Game Canvas for in-game menu!
+    // Double Tap ESC: Exits Fullscreen cleanly!
+    // ========================================================
+    let lastEscTime = 0;
+    let escTimer = null;
+    let suppressEscKeyUp = false;
+    const DOUBLE_TAP_THRESHOLD_MS = 450;
+
+    window.addEventListener("keydown", function(event) {
+        if (event.key === "Escape" || event.code === "Escape" || event.keyCode === 27) {
+            const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+
+            if (isFs) {
+                const now = performance.now();
+                const timeDiff = now - lastEscTime;
+
+                if (lastEscTime > 0 && timeDiff <= DOUBLE_TAP_THRESHOLD_MS) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    event.stopImmediatePropagation();
+                    suppressEscKeyUp = true;
+                    lastEscTime = 0;
+                    clearTimeout(escTimer);
+
+                    exitFullscreen();
+                    showToast("🗗 Exited Fullscreen", 1500);
+                } else {
+                    lastEscTime = now;
+                    showToast("Game Menu • Press [ESC] again quickly to Exit Fullscreen", 1500);
+
+                    clearTimeout(escTimer);
+                    escTimer = setTimeout(() => {
+                        lastEscTime = 0;
+                    }, DOUBLE_TAP_THRESHOLD_MS);
+                }
+            }
+        }
+    }, true);
+
+    window.addEventListener("keyup", function(event) {
+        if ((event.key === "Escape" || event.code === "Escape" || event.keyCode === 27) && suppressEscKeyUp) {
+            suppressEscKeyUp = false;
+            event.preventDefault();
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+        }
+    }, true);
+
+    // ========================================================
+    // AD MANAGEMENT (CLOSE, HIDE, RESTORE)
+    // ========================================================
+    let adsVisible = true;
+
+    function closeSingleAd(adCardId) {
+        const adCard = document.getElementById(adCardId);
+        if (adCard) {
+            adCard.classList.add("ad-closed");
+            updateRestoreButtonsVisibility();
+            showToast("Ad dismissed", 1200);
+        }
+    }
+
+    function toggleAdsVisibility() {
+        const sidebarLeft = document.getElementById("sidebar-left");
+        const sidebarRight = document.getElementById("sidebar-right");
+        adsVisible = !adsVisible;
+
+        if (sidebarLeft) sidebarLeft.classList.toggle("sidebar-hidden", !adsVisible);
+        if (sidebarRight) sidebarRight.classList.toggle("sidebar-hidden", !adsVisible);
+
+        const label = adsVisible ? "Hide Ads" : "Show Ads";
+        const icon = adsVisible ? "👁️" : "👁️‍🗨️";
+
+        const toggleBtnLabel = document.getElementById("toggle-ads-label");
+        const toggleBtnIcon = document.getElementById("toggle-ads-icon");
+        const hudToggleBtnLabel = document.getElementById("hud-toggle-ads-label");
+        const hudToggleBtnIcon = document.getElementById("hud-toggle-ads-icon");
+
+        if (toggleBtnLabel) toggleBtnLabel.textContent = label;
+        if (toggleBtnIcon) toggleBtnIcon.textContent = icon;
+        if (hudToggleBtnLabel) hudToggleBtnLabel.textContent = label;
+        if (hudToggleBtnIcon) hudToggleBtnIcon.textContent = icon;
+
+        setTimeout(resizeCanvas, 150);
+    }
+
+    function restoreAllAds() {
+        const closedCards = document.querySelectorAll(".ad-card.ad-closed");
+        closedCards.forEach(card => card.classList.remove("ad-closed"));
+
+        const sidebarLeft = document.getElementById("sidebar-left");
+        const sidebarRight = document.getElementById("sidebar-right");
+        if (sidebarLeft) sidebarLeft.classList.remove("sidebar-hidden");
+        if (sidebarRight) sidebarRight.classList.remove("sidebar-hidden");
+
+        adsVisible = true;
+        const toggleBtnLabel = document.getElementById("toggle-ads-label");
+        if (toggleBtnLabel) toggleBtnLabel.textContent = "Hide Ads";
+        const hudToggleBtnLabel = document.getElementById("hud-toggle-ads-label");
+        if (hudToggleBtnLabel) hudToggleBtnLabel.textContent = "Hide Ads";
+
+        updateRestoreButtonsVisibility();
+        setTimeout(resizeCanvas, 150);
+        showToast("All ads restored", 1500);
+    }
+
+    function updateRestoreButtonsVisibility() {
+        const closedCards = document.querySelectorAll(".ad-card.ad-closed");
+        const btnRestore = document.getElementById("btn-restore-ads");
+        const hudBtnRestore = document.getElementById("hud-restore-ads-btn");
+
+        const hasClosedAds = closedCards.length > 0;
+        if (btnRestore) btnRestore.style.display = hasClosedAds ? "inline-flex" : "none";
+        if (hudBtnRestore) hudBtnRestore.style.display = hasClosedAds ? "inline-flex" : "none";
+    }
+
+    // Modal Dialog Controls
+    const controlsModal = document.getElementById("controls-modal");
+    function openControlsModal() {
+        if (controlsModal) controlsModal.classList.add("modal-open");
+    }
+    function closeControlsModal(e) {
+        if (!e || e.target === controlsModal || e.target.classList.contains("modal-close")) {
+            if (controlsModal) controlsModal.classList.remove("modal-open");
+        }
+    }
+</script>
+</body>
+</html>
